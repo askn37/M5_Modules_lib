@@ -1,0 +1,7 @@
+# This file is a work in progress. The plan is to add (all/most) AVR specific words, so
+# they get highlighted in the Arduino IDE when used
+# More libraries will be added later
+
+# FUNCTIONS are color coded with	KEYWORD2
+# MACROS WITH PARAMETERS are are color coded with	KEYWORD3	 	RESERVED_WORD
+# MACROS WITHOUT PARAMETERS are color coded with	LITERAL2		RESERVED_WORD_2
