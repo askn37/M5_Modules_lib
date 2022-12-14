@@ -49,7 +49,7 @@ void setup (void) {
   // GPS.begin(9600);
   // GPS.println(P(_PCAS01_1152));
   // GPS.end();
-	// delay(100);
+  // delay(100);
 
   GPS.begin(115200);
   GPS.println(P(_PCAS02_MIN));
@@ -59,13 +59,13 @@ void setup (void) {
 
 void loop (void) {
   char buff[1024];
-	size_t length = GPS.readBytes(&buff, sizeof(buff));
+  size_t length = GPS.readBytes(&buff, sizeof(buff));
   if (0 < length && '$' == buff[0]) {
     // Serial.write(&buff, length);
     // Serial.print('=').println(length);
     if (GPS_RMS.update(&buff, length)) {
       digitalWrite(LED_BUILTIN, TOGGLE);
-	    gpsdata_t gpsdata = GPS_RMS.getData();
+      gpsdata_t gpsdata = GPS_RMS.getData();
       if (gpsdata.update.stamp) {
         Serial.print(F("date=")).print(gpsdata.stamp.date, HEX);
         Serial.print('_');
@@ -83,10 +83,10 @@ void loop (void) {
         else {
           Serial.println(F(",lat=nan,lon=nan"));
         }
-				return;
+        return;
       }
     }
-		Serial.println(F("date=nan,lat=nan,lon=nan"));
+    Serial.println(F("date=nan,lat=nan,lon=nan"));
   }
 }
 

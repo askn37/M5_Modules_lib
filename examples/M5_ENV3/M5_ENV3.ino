@@ -58,29 +58,29 @@ void loop (void) {
 
   if (
 #ifdef APPEND_NCIR
-		ENV3_QMP.update() && ENV3_SHT.update() && NCIR.update()
+    ENV3_QMP.update() && ENV3_SHT.update() && NCIR.update()
 #else
     ENV3_QMP.update() && ENV3_SHT.update()
 #endif
   ){
-		/* QMP6988 */
+    /* QMP6988 */
     float temp1 = ENV3_QMP.getTemperature();
     float press = ENV3_QMP.getPressure();
 
-		/* SHT3X */
+    /* SHT3X */
     float temp2 = ENV3_SHT.getTemperature();
     float humi  = ENV3_SHT.getHumidity();
     float wbgti = ENV3_SHT.getWBGTinDoor();
     float wbgto = ENV3_SHT.getWBGToutDoor();
 #ifdef APPEND_NCIR
 
-		/* MLX90614 */
+    /* MLX90614 */
     float temp3 = NCIR.getAmbientTemperature();
     float temp4 = NCIR.getObjectTemperature();
 #endif
 
     Serial
-		.print(F("温度1=")).print(temp1).print(F("C:")).print(temp1)
+    .print(F("温度1=")).print(temp1).print(F("C:")).print(temp1)
     .print(F(",温度2=")).print(temp2).print(F("C:")).print(temp2)
 #ifdef APPEND_NCIR
     .print(F(",温度3=")).print(temp3).print(F("C:")).print(temp3)
