@@ -16,7 +16,7 @@ AVR-GCC / AVR-LIBC 専用。__Arduino互換API用ではない。__
 ## パス配置
 
 このモジュールは __Arduino IDE__ の
-```boards.txt/platform.txt```において
+`boards.txt/platform.txt`において
 以下のパスに配置される。
 
 ```plain

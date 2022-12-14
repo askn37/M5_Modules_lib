@@ -24,19 +24,19 @@
 class HUB_PCA9548AP_Class {
 private:
   TWIM_Class TWIC;
-    uint8_t _addr;
+  uint8_t _addr;
 
 public:
   inline HUB_PCA9548AP_Class (TWIM_Class _twim) : TWIC(_twim), _addr(HUB_PCA9548AP_ADDR_0) {}
   inline HUB_PCA9548AP_Class (TWIM_Class _twim, const uint8_t addr) : TWIC(_twim), _addr(addr) {}
 
-    uint8_t get (void) {
-        return TWIC.request(_addr, 1).read();
-    }
+  uint8_t get (void) {
+      return TWIC.request(_addr, 1).read();
+  }
 
-    bool set (const uint8_t _var) {
-        return TWIC.start(_addr, 1).write(_var);
-    }
+  bool set (const uint8_t _var) {
+      return TWIC.start(_addr, 1).write(_var);
+  }
 };
 
 // end of code
