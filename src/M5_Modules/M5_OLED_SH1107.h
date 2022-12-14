@@ -67,8 +67,8 @@ public:
 
   inline OLED_SH1107_Class& send (const uint8_t _c) { write(_c); return *this; }
   inline OLED_SH1107_Class& send (const char* _buffer, size_t _length) {
-    write((const uint8_t *) _buffer, _length);
-        return *this;
+  write((const uint8_t *) _buffer, _length);
+    return *this;
   }
 
 };

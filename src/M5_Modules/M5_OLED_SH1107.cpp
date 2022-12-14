@@ -56,9 +56,9 @@ void OLED_SH1107_Class::set_page (uint8_t _page) {
 
 OLED_SH1107_Class& OLED_SH1107_Class::clear (bool console_mode) {
   TWIC
-        .start(OLED_SH1107_ADDR)
-        .write(P(oled_init), sizeof(oled_init))
-    ;
+    .start(OLED_SH1107_ADDR)
+    .write(P(oled_init), sizeof(oled_init))
+  ;
   uint8_t _x = OLED_W;
   do {
     uint8_t _y = OLED_H * OLED_L;
@@ -123,7 +123,7 @@ OLED_SH1107_Class& OLED_SH1107_Class::drawTestPattern (uint8_t _offset) {
       TWIC.write(pgm_read_byte(&test_data[(_offset + --_y) & 7]));
     } while (_y);
   } while (_x);
-    TWIC.stop();
+  TWIC.stop();
   return *this;
 }
 
