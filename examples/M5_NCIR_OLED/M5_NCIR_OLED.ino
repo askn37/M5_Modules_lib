@@ -26,9 +26,9 @@ void setup (void) {
 
   OLED.clear(false);
 
-	OLED.setPosition(0, 0).print(F("AMB:"));
-	OLED.setPosition(0, 1).print(F("OBJ:"));
-	OLED.flush();
+  OLED.setPosition(0, 0).print(F("AMB:"));
+  OLED.setPosition(0, 1).print(F("OBJ:"));
+  OLED.flush();
 
   /* generate periodic */
   RTC_PITINTCTRL = RTC_PI_bm;
@@ -43,15 +43,15 @@ void loop (void) {
   sleep_cpu();
   digitalWrite(LED_BUILTIN, TOGGLE);
   if (NCIR.update()) {
-		float temp0 = NCIR.getAmbientTemperature();
+    float temp0 = NCIR.getAmbientTemperature();
   	float temp1 = NCIR.getObjectTemperature();
-		OLED.setPosition(5, 0).print(temp0).print(F("\x7F\x43"));
-		OLED.setPosition(5, 1).print(temp1).print(F("\x7F\x43"));
+    OLED.setPosition(5, 0).print(temp0).print(F("\x7F\x43"));
+    OLED.setPosition(5, 1).print(temp1).print(F("\x7F\x43"));
   }
   else {
-		OLED.setPosition(5, 0).print(F("FAIL"));
+    OLED.setPosition(5, 0).print(F("FAIL"));
   }
-	OLED.flush();
+  OLED.flush();
 }
 
 // end of code
