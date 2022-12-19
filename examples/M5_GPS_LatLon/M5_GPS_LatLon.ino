@@ -9,11 +9,11 @@
  *
  */
 #include <SoftwareUART.h>
-#include <GPS_RMS.h>
+#include <GPS_RMC.h>
 
 SoftwareUART_Class GPS = {PIN_PA2, PIN_PA3};
 
-GPS_RMS_Class GPS_RMS;
+GPS_RMC_Class GPS_RMC;
 
 /* CASIC マルチモード衛星航法受信機プロトコル仕様 */
 /* https://www.icofchina.com/d/file/xiazai/2017-05-02/ea0cdd3d81eeebcc657b5dbca80925ee.pdf */
@@ -63,9 +63,9 @@ void loop (void) {
   if (0 < length && '$' == buff[0]) {
     // Serial.write(&buff, length);
     // Serial.print('=').println(length);
-    if (GPS_RMS.update(&buff, length)) {
+    if (GPS_RMC.update(&buff, length)) {
       digitalWrite(LED_BUILTIN, TOGGLE);
-      gpsdata_t gpsdata = GPS_RMS.getData();
+      gpsdata_t gpsdata = GPS_RMC.getData();
       if (gpsdata.update.stamp) {
         Serial.print(F("date=")).print(gpsdata.stamp.date, HEX);
         Serial.print('_');
