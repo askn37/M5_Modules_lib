@@ -1,5 +1,5 @@
 /**
- * @file M5_GPS_LonLat.ino
+ * @file M5_GPS_LatLon.ino
  * @author askn (K.Sato) multix.jp
  * @brief
  * @version 0.1
