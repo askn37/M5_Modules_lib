@@ -99,20 +99,20 @@ public:
   bool sleep (void) {
     uint8_t _sleep[] = {NCIR_MLX90614_enum::NCIR_ENTER_SLEEP_gc, 0xE8};
     return 2 == TWIC.start(NCIR_MLX90614_ADDR, 2).write(_sleep, sizeof(_sleep));
-	/** after task hold lowpower mode **
-		Wire.end();               // release TWI control
-		digitalWrite(SDA, HIGH); pinMode(SDA, OUTPUT);
-		digitalWrite(SCL, LOW);  pinMode(SCL, OUTPUT);
-	*/
-	/** wakeup lowpower **
-		digitalWrite(SCL, HIGH);  // hold SCL HIGH
-		digitalWrite(SDA, LOW);   // hold SDA LOW
-		delay(33);                // Wake Up delay 33ms
-		pinMode(SCL, INPUT);      // release open-drain
-		pinMode(SDA, INPUT);      // release open-drain
-		Wire.begin();             // re-init I2C bus
-		delay(250);               // First sampling delay 250ms
-	*/
+  /** after task hold lowpower mode **
+    Wire.end();               // release TWI control
+    digitalWrite(SDA, HIGH); pinMode(SDA, OUTPUT);
+    digitalWrite(SCL, LOW);  pinMode(SCL, OUTPUT);
+  */
+  /** wakeup lowpower **
+    digitalWrite(SCL, HIGH);  // hold SCL HIGH
+    digitalWrite(SDA, LOW);   // hold SDA LOW
+    delay(33);                // Wake Up delay 33ms
+    pinMode(SCL, INPUT);      // release open-drain
+    pinMode(SDA, INPUT);      // release open-drain
+    Wire.begin();             // re-init I2C bus
+    delay(250);               // First sampling delay 250ms
+  */
   }
 
 };
