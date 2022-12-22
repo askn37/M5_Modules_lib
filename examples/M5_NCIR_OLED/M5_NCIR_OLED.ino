@@ -44,7 +44,7 @@ void loop (void) {
   digitalWrite(LED_BUILTIN, TOGGLE);
   if (NCIR.update()) {
     float temp0 = NCIR.getAmbientTemperature();
-  	float temp1 = NCIR.getObjectTemperature();
+    float temp1 = NCIR.getObjectTemperature();
     OLED.setPosition(5, 0).print(temp0).print(F("\x7F\x43"));
     OLED.setPosition(5, 1).print(temp1).print(F("\x7F\x43"));
   }
