@@ -1,4 +1,4 @@
-# M5_OLED_Console.ino
+# M5_OLED_Freq.ino
 
 このサンプルスケッチは以下について記述している；
 
