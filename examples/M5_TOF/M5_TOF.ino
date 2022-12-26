@@ -32,9 +32,7 @@ void setup (void) {
   sleep_enable();
 }
 
-ISR(RTC_PIT_vect) {
-  RTC_PITINTFLAGS = RTC_PI_bm;
-}
+EMPTY_INTERRUPT(RTC_PIT_vect);
 
 void loop (void) {
   digitalWrite(LED_BUILTIN, TOGGLE);
@@ -48,6 +46,7 @@ void loop (void) {
   }
 
   Serial.flush();
+  RTC_PITINTFLAGS = RTC_PI_bm;
   sleep_cpu();
 }
 

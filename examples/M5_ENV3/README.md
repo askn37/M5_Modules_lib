@@ -2,7 +2,7 @@
 
 このサンプルスケッチは以下について記述している；
 
-- ENV III（U001-C）実演
+- ENV III環境センサー（U001-C）実演
 
 ## 対象AVR
 
@@ -101,10 +101,11 @@ float press = ENV3_QMP.getPressure();
 
 `ENV3`内臓の`QMP6988`の制御アドレスは`0x70`であるが、これは
 [[M5Stack : I2C Hub 1 to 6 Expansion Unit (PCA9548APW) SKU: U040-B]](https://shop.m5stack.com/collections/m5-sensor/products/i2c-hub-1-to-6-expansion-unit-pca9548apw)
-のそれと同一であって衝突しており、購入状態では同時使用できない。
-対策は後者`I2C HUB`を一度分解（要T6型HEXドライバー）し、
+のそれと同一であって衝突しており、購入状態では両者を混在使用できない。
+対策は後者`I2C HUB`を（T6型HEXドライバーでネジ1本を外し）一度分解し、
 ジャンパーパッドを半田ブリッジまたは
 1608サイズの 0Ωチップ抵抗を追加することにより制御アドレスを変更するしかない。
+ただこれは難易度がやや高いので`GROVE HUB(U006)`を選択するほうが良いだろう。
 `ENV3`のほうは分解してもジャンパーパッドが存在しないので対応不能だ。
 
 ## 著作表示
