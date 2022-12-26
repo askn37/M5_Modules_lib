@@ -19,7 +19,7 @@
 は 1.3インチ の 128x64 ピクセル OLED を搭載したモジュールだ。
 `<M5_OLED_SH1107.h>`はこれを横向きの 16キャラクタx4行 英数コンソールとして使用できる機能を提供する。
 
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/%E9%9B%BB%E5%AD%90%E5%B7%A5%E4%BD%9C?src=hash&amp;ref_src=twsrc%5Etfw">#電子工作</a> M5 OLED(SH1107)のキャラクコンソール風AVR実装のテスト。ぬめぬめスクロール改行付。かなり速度落として撮影してるが全速60fps行ける模様。 <a href="https://t.co/5VNZZzjeEY">pic.twitter.com/5VNZZzjeEY</a></p>&mdash; 朝日薫舞鶴甲27 (@askn37) <a href="https://twitter.com/askn37/status/1584807313395036160?ref_src=twsrc%5Etfw">October 25, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+> [https://twitter.com/askn37/status/1584807313395036160](https://twitter.com/askn37/status/1584807313395036160)
 
 配線接続は次のようにする。
 __"Zinnia Duino"__ の場合はオンボード上の
