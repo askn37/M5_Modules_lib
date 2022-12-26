@@ -40,7 +40,7 @@ public:
     } _data;
     TWIC.stop();
     if (sizeof(_data) != TWIC
-            .start(ENVS_SHT3X_ADDR)
+      .start(ENVS_SHT3X_ADDR)
       .send(0x2C).send(0x06) /* Clock stretching and High Repeatability */
       .request(ENVS_SHT3X_ADDR, sizeof(_data))
       .read((uint8_t*)&_data, sizeof(_data))) return false;

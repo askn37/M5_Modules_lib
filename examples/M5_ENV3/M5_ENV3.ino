@@ -45,14 +45,16 @@ void setup (void) {
 #endif
 
   /* generate periodic */
+  loop_until_bit_is_clear(RTC_PITSTATUS, RTC_CTRLBUSY_bp);
   RTC_PITINTCTRL = RTC_PI_bm;
   RTC_PITCTRLA = RTC_PITEN_bm | RTC_PERIOD_CYC16384_gc;
 }
 
-ISR(RTC_PIT_vect) { RTC_PITINTFLAGS = RTC_PI_bm; }
+EMPTY_INTERRUPT(RTC_PIT_vect);
 
 void loop (void) {
   Serial.flush();
+  RTC_PITINTFLAGS = RTC_PI_bm;
   sleep_cpu();
   digitalWrite(LED_BUILTIN, TOGGLE);
 

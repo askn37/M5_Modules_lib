@@ -11,7 +11,6 @@
 #pragma once
 
 #include <api/TWIM.h>    /* Wire methods */
-#include <api/btools.h>  /* crc8() */
 #include <api/capsule.h> /* _CAPS16() */
 #include <api/delay_busywait.h>
 
