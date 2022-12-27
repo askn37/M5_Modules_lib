@@ -9,14 +9,13 @@
  *
  */
 #include <SoftwareUART.h>
-
 SoftwareUART_Class GPS = {PIN_PA2, PIN_PA3};
 
 /* CASIC マルチモード衛星航法受信機プロトコル仕様 */
 /* https://www.icofchina.com/d/file/xiazai/2017-05-02/ea0cdd3d81eeebcc657b5dbca80925ee.pdf */
 
 const char _PCAS01_96[]   PROGMEM = "$PCAS01,1*1D"; /* 9600bps */
-const char _PCAS01_384[]  PROGMEM = "$PCAS01,3*1F"; /* 3840bps */
+const char _PCAS01_384[]  PROGMEM = "$PCAS01,3*1F"; /* 38400bps */
 const char _PCAS01_1152[] PROGMEM = "$PCAS01,5*19"; /* 115200bps */
 
 const char _PCAS02_MIN[]  PROGMEM = "$PCAS02,1000*2E"; /* 1000ms=1Hz */
@@ -39,19 +38,21 @@ const char _PCAS12_60[]   PROGMEM = "$PCAS12,60*28"; /* Going Standby 60sec (Fir
 void setup (void) {
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, TOGGLE);
-
   Serial.begin(CONSOLE_BAUD).println(F("\r<startup>"));
-  Serial.print(F("F_CPU=")).println(F_CPU, DEC);
 
   GPS.begin(9600);
+  // GPS.println(P(_PCAS01_1152));
+  // GPS.end();
+  // delay(100);
+  // GPS.begin(115200);
   GPS.println(P(_PCAS02_MIN)); /* Console Freq */
-  GPS.println(P(_PCAS03_MIN)); /* Console Periodic */
+  GPS.println(P(_PCAS03_MAX)); /* Console Periodic */
   GPS.println(P(_PCAS04_MID)); /* Target System */
 }
 
 void loop (void) {
   size_t length;
-  char buff[1024];
+  char buff[768];
   length = GPS.readBytes(&buff, sizeof(buff));
   if (length > 0 && '$' == buff[0]) {
     digitalWrite(LED_BUILTIN, TOGGLE);
