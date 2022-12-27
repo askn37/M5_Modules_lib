@@ -22,7 +22,7 @@
 ここではこれらのセンサーから「WBGT」近似値を算出して
 シリアルプロッタに出力する。
 
-![Preview](M5_ENV3.png)
+![Preview](https://askn37.github.io/img/M5_ENV3.png)
 
 センサー接続は次のようにする。
 __"Zinnia Duino"__ の場合はオンボード上の
@@ -53,6 +53,9 @@ IOREF選択電圧は3V/5Vどちらでもよい。
 ```c
 #include <M5_Modules.h>
 ENVS_SHT3X ENV3_SHT = {Wire};
+
+/* setup */
+Wire.initiate(TWI_SM, false);
 
 /* loop */
 ENV3_SHT.update(); /* true is success */
@@ -86,6 +89,7 @@ float wbgto = ENV3_SHT.getWBGToutDoor();
 ENVS_QMP6988 ENV3_QMP = {Wire};
 
 /* setup */
+Wire.initiate(TWI_SM, false);
 ENV3_QMP.initialize(); /* true is success */
 
 /* loop */

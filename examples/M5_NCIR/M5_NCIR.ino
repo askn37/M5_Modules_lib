@@ -22,10 +22,6 @@ void setup (void) {
   Wire.initiate(TWI_SM, false);
 
   Serial.print(F("F_CPU=")).print(F_CPU, DEC);
-  Serial.print(F(",MBAUD=")).println(Wire.is_baud(), DEC);
-
-  /* option : I2C HUB PCA9548A (0x70) selected channels (all) */
-  // Wire.start(0x70).send(0xFF).stop();
 
   if (!NCIR.initialize()) {
     Serial.println(F("NCIR notready"));
@@ -40,10 +36,11 @@ void setup (void) {
   sleep_enable();
 }
 
-ISR(RTC_PIT_vect) { RTC_PITINTFLAGS = RTC_PI_bm; }
+EMPTY_INTERRUPT(RTC_PIT_vect);
 
 void loop (void) {
   Serial.flush();
+  RTC_PITINTFLAGS = RTC_PI_bm;
   sleep_cpu();
   digitalWrite(LED_BUILTIN, TOGGLE);
   if (NCIR.update()) {

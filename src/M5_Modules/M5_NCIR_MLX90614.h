@@ -38,6 +38,30 @@ private:
   TWIM_Class TWIC;
   float _temperature0, _temperature1, _temperature2;
 
+public:
+  inline NCIR_MLX90614_Class (TWIM_Class _twim) : TWIC(_twim) {}
+
+  bool initialize (void) {
+    return SMBus_write(NCIR_ROM_EMISSIVITY_gc, 0xFFFF);
+  }
+
+  bool getTemperature (const uint8_t _register, float &_temperature) {
+    uint16_t _data;
+    if (!SMBus_read(_register, _data)) return false;
+    _temperature = _data * 0.02 - 273.15;
+    return (_data >> 15) == 0;
+  }
+
+  bool update (void) {
+    return getTemperature(NCIR_MLX90614_enum::NCIR_RAM_AMBIENT_gc, _temperature0)
+        && getTemperature(NCIR_MLX90614_enum::NCIR_RAM_OBJECT_gc,  _temperature1)
+        && getTemperature(NCIR_MLX90614_enum::NCIR_RAM_OBJECT2_gc, _temperature2);
+  }
+
+  float getAmbientTemperature (void) { return _temperature0; }
+  float getObjectTemperature (void) { return _temperature1; }
+  float getObjectTemperature2 (void) { return _temperature2; }
+
   bool SMBus_read (const uint8_t _register, uint16_t& _result) {
     uint8_t payload[6] = {
       (NCIR_MLX90614_ADDR << 1)
@@ -72,30 +96,6 @@ private:
       .write((uint8_t*)&payload + 1, 4);
   }
 
-public:
-  inline NCIR_MLX90614_Class (TWIM_Class _twim) : TWIC(_twim) {}
-
-  bool initialize (void) {
-    return SMBus_write(NCIR_ROM_EMISSIVITY_gc, 0xFFFF);
-  }
-
-  bool getTemperature (const uint8_t _register, float &_temperature) {
-    uint16_t _data;
-    if (!SMBus_read(_register, _data)) return false;
-    _temperature = _data * 0.02 - 273.15;
-    return (_data >> 15) == 0;
-  }
-
-  bool update (void) {
-    return getTemperature(NCIR_MLX90614_enum::NCIR_RAM_AMBIENT_gc, _temperature0)
-        && getTemperature(NCIR_MLX90614_enum::NCIR_RAM_OBJECT_gc,  _temperature1)
-        && getTemperature(NCIR_MLX90614_enum::NCIR_RAM_OBJECT2_gc, _temperature2);
-  }
-
-  float getAmbientTemperature (void) { return _temperature0; }
-  float getObjectTemperature (void) { return _temperature1; }
-  float getObjectTemperature2 (void) { return _temperature2; }
-
   bool sleep (void) {
     uint8_t _sleep[] = {NCIR_MLX90614_enum::NCIR_ENTER_SLEEP_gc, 0xE8};
     return 2 == TWIC.start(NCIR_MLX90614_ADDR, 2).write(_sleep, sizeof(_sleep));
@@ -112,6 +112,7 @@ public:
     pinMode(SDA, INPUT);      // release open-drain
     Wire.begin();             // re-init I2C bus
     delay(250);               // First sampling delay 250ms
+    initialize();
   */
   }
 

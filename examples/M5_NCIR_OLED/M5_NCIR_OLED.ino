@@ -11,9 +11,14 @@
 
 #include <M5_Modules.h>
 
+/* sensor device */
+NCIR_MLX90614_Class NCIR = {Wire};
+
 /* constructor and Load FontSet : 0x32-0x7F */
 OLED_SH1107_Class OLED = {Wire, moderndos_8x16};
-NCIR_MLX90614_Class NCIR = {Wire};
+
+/* option : I2C HUB PCA9548A selected address (default) */
+HUB_PCA9548AP_Class I2CHUB = {Wire, HUB_PCA9548AP_ADDR_0};
 
 void setup (void) {
   pinMode(LED_BUILTIN, OUTPUT);
@@ -21,11 +26,10 @@ void setup (void) {
   /* speed selection : TWI_SM Only */
   Wire.initiate(TWI_SM, false);
 
-  /* option : I2C HUB PCA9548A (0x70) selected channels (all) */
-  Wire.start(0x70).send(0xFF).stop();
+  /* option : I2C HUB PCA9548A selected channels (all) */
+  I2CHUB.set(0xFF);
 
   OLED.clear(false);
-
   OLED.setPosition(0, 0).print(F("AMB:"));
   OLED.setPosition(0, 1).print(F("OBJ:"));
   OLED.flush();
@@ -37,9 +41,10 @@ void setup (void) {
   sleep_enable();
 }
 
-ISR(RTC_PIT_vect) { RTC_PITINTFLAGS = RTC_PI_bm; }
+EMPTY_INTERRUPT(RTC_PIT_vect);
 
 void loop (void) {
+  RTC_PITINTFLAGS = RTC_PI_bm;
   sleep_cpu();
   digitalWrite(LED_BUILTIN, TOGGLE);
   if (NCIR.update()) {
