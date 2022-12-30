@@ -25,7 +25,7 @@
 [[M5Stack : I2C Hub 1 to 6 Expansion Unit (PCA9548APW) SKU: U040-B]](https://shop.m5stack.com/collections/m5-sensor/products/i2c-hub-1-to-6-expansion-unit-pca9548apw)
 （以下`I2CHUB`）
 または\
-[[M5Stack : 1 to 3 HUB Expansion Unit SKU: U006]](https://shop.m5stack.com/collections/m5-sensor/products/mini-hub-module)
+[[M5Stack : 1 to 3 HUB Expansion Unit (GROVE Expander) SKU: U006]](https://shop.m5stack.com/collections/m5-sensor/products/mini-hub-module)
 と併用する。
 
 ## I2CHUB の制御
@@ -51,7 +51,7 @@ I2CHUB.set(0xFF);
 また基板上のポート番号表記は`[1-6]`である。適宜`Ch[0-5]`に読み替えること。
 
 ジャンパーパッドを操作して制御アドレスをデフォルト`0x70`以外に
-変更している場合は、クラスインスタンスにその指定を追加する。
+変更している場合は、クラスインスタンスにその指定`HUB_PCA9548AP_ADDR_[0-7]`を追加する。
 複数の`I2CBUS`を同時に配線した場合は、
 クラスインスタンスをその数だけ用意して使い分ける。
 

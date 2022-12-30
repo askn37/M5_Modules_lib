@@ -109,7 +109,9 @@ float press = ENV3_QMP.getPressure();
 対策は後者`I2C HUB`を（T6型HEXドライバーでネジ1本を外し）一度分解し、
 ジャンパーパッドを半田ブリッジまたは
 1608サイズの 0Ωチップ抵抗を追加することにより制御アドレスを変更するしかない。
-ただこれは難易度がやや高いので`GROVE HUB(U006)`を選択するほうが良いだろう。
+ただこれは難易度がやや高いので
+[[M5Stack : 1 to 3 HUB Expansion Unit (GROVE Expander) SKU: U006]](https://shop.m5stack.com/products/mini-hub-module)
+を選択するほうが良いだろう。
 `ENV3`のほうは分解してもジャンパーパッドが存在しないので対応不能だ。
 
 ## 著作表示
