@@ -42,14 +42,14 @@ const uint8_t oled_init[] PROGMEM = {
   // , 0x10  // Set high column : 0-7
 };
 
-void OLED_SH1107_Class::set_page (uint8_t _page) {
+void OLED_SH1107_Class::set_page (uint8_t _page, uint8_t _len) {
   TWIC
     .start(OLED_SH1107_ADDR)
     .send(0x00)
     .send(0x00)         /* Set Column Low */
     .send(0x10)         /* Set Column High */
     .send(0xB0 + _page) /* Set Page */
-    .start(OLED_SH1107_ADDR)
+    .start(OLED_SH1107_ADDR, ++_len)
     .send(0x40)         /* RAM Write Mode */
   ;
 }
@@ -62,7 +62,7 @@ OLED_SH1107_Class& OLED_SH1107_Class::clear (bool console_mode) {
   uint8_t _x = OLED_W;
   do {
     uint8_t _y = OLED_H * OLED_L;
-    set_page(--_x);
+    set_page(--_x, _y);
     do { TWIC.write(0x00); } while (--_y);
   } while (_x);
   TWIC
@@ -78,7 +78,7 @@ OLED_SH1107_Class& OLED_SH1107_Class::clear (bool console_mode) {
 
 OLED_SH1107_Class& OLED_SH1107_Class::setFlip (bool flip_mode) {
   TWIC
-    .start(OLED_SH1107_ADDR, 4)
+    .start(OLED_SH1107_ADDR, 3)
     .send(0x00)
     .send(flip_mode ? 0xC0 : 0xC8)
     .send(flip_mode ? 0xA0 : 0xA1)
@@ -117,8 +117,8 @@ const uint8_t test_data[] PROGMEM = { 0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 
 OLED_SH1107_Class& OLED_SH1107_Class::drawTestPattern (uint8_t _offset) {
   uint8_t _x = OLED_W;
   do {
-    set_page(--_x);
     uint8_t _y = OLED_W * OLED_H;
+    set_page(--_x, _y);
     do {
       TWIC.write(pgm_read_byte(&test_data[(_offset + --_y) & 7]));
     } while (_y);
@@ -133,23 +133,22 @@ OLED_SH1107_Class& OLED_SH1107_Class::drawChar (uint8_t _ax, uint8_t _ay, uint8_
   if (_c >= 240) _p = ExtraRAMSet + ((uint16_t)(_c - 240) << 4);
   else if (_c >= 96 && ExtraROMSet != nullptr) _p = ExtraROMSet + ((uint16_t)(_c - 96) << 4);
   else _p = (uint8_t*)&FontSet[(uint16_t)_c << 4];
+  uint8_t _i = OLED_L;
   TWIC
     .start(OLED_SH1107_ADDR)
     .send(0x00)
     .send((uint8_t)(0xB0 + (~_ax & (OLED_W - 1))))
     .send(0x00)
     .send((uint8_t)(0x10 + (_ay & (OLED_H - 1))))
-    .start(OLED_SH1107_ADDR)
+    .start(OLED_SH1107_ADDR, _i + 1)
     .send(0x40)
   ;
-  uint8_t _i = OLED_L;
   if (_c >= 240) {
     do TWIC.write(*_p++); while (--_i);
   }
   else {
     do TWIC.write(pgm_read_byte(_p++)); while (--_i);
   }
-    TWIC.stop();
   return *this;
 }
 

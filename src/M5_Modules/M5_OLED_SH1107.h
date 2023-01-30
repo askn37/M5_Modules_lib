@@ -41,7 +41,7 @@ private:
   uint8_t _cx, _cy, _cz;
   bool _console_mode;
 
-  void set_page (uint8_t _page);
+  void set_page (uint8_t _page, uint8_t _len);
 
 public:
   inline OLED_SH1107_Class (TWIM_Class _twim, const uint8_t _fontset[]) : TWIC(_twim), FontSet((uint8_t*)_fontset) {}
