@@ -38,7 +38,7 @@ private:
   uint8_t* FontSet;
   uint8_t* ExtraROMSet = nullptr;
   uint8_t* ExtraRAMSet = nullptr;
-  uint8_t _cx, _cy, _cz;
+  uint8_t _cx, _cy, _cz, _ct = 0x80;
   bool _console_mode;
 
   void set_page (uint8_t _page, uint8_t _len);
@@ -46,9 +46,11 @@ private:
 public:
   inline OLED_SH1107_Class (TWIM_Class _twim, const uint8_t _fontset[]) : TWIC(_twim), FontSet((uint8_t*)_fontset) {}
 
+  OLED_SH1107_Class& disable (void);
   OLED_SH1107_Class& clear (bool console_mode = true);
   OLED_SH1107_Class& setFlip (bool flip_mode = true);
   OLED_SH1107_Class& setRevesible (bool reverse_mode = true);
+  OLED_SH1107_Class& setContrast (uint8_t _contrast);
   OLED_SH1107_Class& setScroll (uint8_t _offset);
   OLED_SH1107_Class& setPosition (uint8_t _x, uint8_t _y);
   OLED_SH1107_Class& drawTestPattern (uint8_t _offset = 0);
@@ -67,7 +69,7 @@ public:
 
   inline OLED_SH1107_Class& send (const uint8_t _c) { write(_c); return *this; }
   inline OLED_SH1107_Class& send (const char* _buffer, size_t _length) {
-  write((const uint8_t *) _buffer, _length);
+    write((const uint8_t *) _buffer, _length);
     return *this;
   }
 

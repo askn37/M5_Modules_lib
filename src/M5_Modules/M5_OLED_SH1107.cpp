@@ -27,8 +27,6 @@ const uint8_t oled_init[] PROGMEM = {
   , 0x10  //
   , 0xDB  // Set VCOM Deselect Level Mode (POR 0x15)
   , 0x15  //
-  , 0x81  // Contrast Control Mode (POR 0x80)
-  , 0x80  //
 
   , 0xA8  // Set multiplex ration
   , OLED_H * OLED_L - 1
@@ -36,11 +34,16 @@ const uint8_t oled_init[] PROGMEM = {
   , OLED_O
   , 0xDC  // Set display start line : offset column
   , 0
-
-  // , 0xB0  // Set page : 0-15
-  // , 0x00  // Set low column : 0-15
-  // , 0x10  // Set high column : 0-7
 };
+
+OLED_SH1107_Class& OLED_SH1107_Class::disable (void) {
+  TWIC
+    .start(OLED_SH1107_ADDR, 2)
+    .send(0x00)
+    .send(0xAE)
+  ;
+  return *this;
+}
 
 void OLED_SH1107_Class::set_page (uint8_t _page, uint8_t _len) {
   TWIC
@@ -65,15 +68,10 @@ OLED_SH1107_Class& OLED_SH1107_Class::clear (bool console_mode) {
     set_page(--_x, _y);
     do { TWIC.write(0x00); } while (--_y);
   } while (_x);
-  TWIC
-    .start(OLED_SH1107_ADDR, 2)
-    .send(0x00)
-    .send(0xAF) /* Display On */
-  ;
   _console_mode = console_mode;
   _cx = _cy = 0;
   _cz = OLED_V;
-  return *this;
+  return setContrast(_ct);
 }
 
 OLED_SH1107_Class& OLED_SH1107_Class::setFlip (bool flip_mode) {
@@ -95,12 +93,24 @@ OLED_SH1107_Class& OLED_SH1107_Class::setRevesible (bool reverse_mode) {
   return *this;
 }
 
+OLED_SH1107_Class& OLED_SH1107_Class::setContrast (uint8_t _contrast) {
+  _ct = _contrast;
+  TWIC
+    .start(OLED_SH1107_ADDR, 4)
+    .send(0x00)
+    .send(0x81)
+    .send(_contrast)
+    .send(0xAF)     // Display >1=On
+  ;
+  return *this;
+}
+
 OLED_SH1107_Class& OLED_SH1107_Class::setScroll (uint8_t _offset) {
   TWIC
     .start(OLED_SH1107_ADDR, 3)
     .send(0x00)
     .send(0xDC)
-    .send(_offset & 127)
+    .send(_offset & (OLED_W * OLED_H - 1))
   ;
   return *this;
 }
