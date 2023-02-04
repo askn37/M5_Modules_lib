@@ -21,19 +21,13 @@ const uint8_t oled_init[] PROGMEM = {
   , 0xC8  // Set Common output scan direction : 0=normal, >8=reverse (vertical flip)
   , 0xA1  // Set Segment re-map : 0=Normal, >1=Flip
 
-  , 0xD5  // Set Display Divide Ratio/Oscillator Frequency Mode (POR 0x10)
-  , 0x10  //   Oscillator Frequency : 8, Divide Ratio : 0
-  , 0xD9  // Set Pre-charge Period Mode (POR 0x22)
-  , 0x10  //
-  , 0xDB  // Set VCOM Deselect Level Mode (POR 0x15)
-  , 0x15  //
+  , 0xD5, 0x10  // Set Display Divide Ratio/Oscillator Frequency Mode (POR 0x10)
+  , 0xD9, 0x10  // Set Pre-charge Period Mode (POR 0x22)
+  , 0xDB, 0x15  // Set VCOM Deselect Level Mode (POR 0x15)
 
-  , 0xA8  // Set multiplex ration
-  , OLED_H * OLED_L - 1
-  , 0xD3  // Set display offset : top column
-  , OLED_O
-  , 0xDC  // Set display start line : offset column
-  , 0
+  , 0xA8, OLED_H * OLED_L - 1   // Set multiplex ration
+  , 0xD3, OLED_O                // Set display offset : top column
+  , 0xDC, 0x00  // Set display start line : offset column
 };
 
 OLED_SH1107_Class& OLED_SH1107_Class::disable (void) {
