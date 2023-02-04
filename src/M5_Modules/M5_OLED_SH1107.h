@@ -16,20 +16,15 @@
 #include <api/String.h>
 #include <FontSets.h>
 
-/* Target OLED Controler SH1107 : Display Panel 128x64 Vertical Type */
-#define OLED_SH1107_ADDR 0x3C
-#define OLED_W 16
-#define OLED_H 8
-#define OLED_V 4
-#define OLED_L 16
-#define OLED_O 0x60
-
+#ifndef __OLED_Console_Logic_enum
 typedef enum OLED_Console_Logic_enum : uint8_t {
     OLED_SET = 0
   , OLED_OR  = 1
   , OLED_AND = 2
   , OLED_XOR = 3
 } OLED_Console_Logic_t;
+#define __OLED_Console_Logic_enum
+#endif
 
 class OLED_SH1107_Class : public Print {
 private:

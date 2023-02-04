@@ -8,9 +8,16 @@
  * @copyright Copyright (c) 2022
  *
  */
-
 #include <M5_Modules.h>
 #include <api/delay_busywait.h>
+
+/* Target OLED Controler SH1107 : Display Panel 128x64 Vertical Type */
+#define OLED_SH1107_ADDR 0x3C
+#define OLED_W 16
+#define OLED_H 8
+#define OLED_V 4
+#define OLED_L 16
+#define OLED_O 0x60
 
 const uint8_t oled_init[] PROGMEM = {
     0x00  // command stream
