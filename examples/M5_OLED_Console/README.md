@@ -162,6 +162,7 @@ for (int i = 0; i < 128; i++) {
 ## 著作表示
 
 Twitter: [@askn37](https://twitter.com/askn37) \
+BlueSky Social: [@multix.jp](https://bsky.app/profile/multix.jp) \
 GitHub: [https://github.com/askn37/](https://github.com/askn37/) \
 Product: [https://askn37.github.io/](https://askn37.github.io/)
 

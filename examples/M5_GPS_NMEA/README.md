@@ -120,6 +120,7 @@ $PCAS12,60*28<CR><LF> /* Going Standby 60sec (Firmware V4.2.0.3) */
 ## 著作表示
 
 Twitter: [@askn37](https://twitter.com/askn37) \
+BlueSky Social: [@multix.jp](https://bsky.app/profile/multix.jp) \
 GitHub: [https://github.com/askn37/](https://github.com/askn37/) \
 Product: [https://askn37.github.io/](https://askn37.github.io/)
 
