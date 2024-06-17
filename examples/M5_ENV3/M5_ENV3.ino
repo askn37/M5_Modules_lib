@@ -5,9 +5,11 @@
  * @version 0.1
  * @date 2022-11-06
  *
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2024 askn37 at github.com
  *
  */
+// MIT License : https://askn37.github.io/LICENSE.html
+
 #include <M5_Modules.h>
 
 ENVS_QMP6988 ENV3_QMP = {Wire};

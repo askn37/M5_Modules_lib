@@ -5,9 +5,11 @@
  * @version 0.1
  * @date 2022-11-10
  *
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2024 askn37 at github.com
  *
  */
+// MIT License : https://askn37.github.io/LICENSE.html
+
 #include <SoftwareUART.h>
 #include <GPS_RMC.h>
 SoftwareUART_Class GPS = {PIN_PA2, PIN_PA3};
