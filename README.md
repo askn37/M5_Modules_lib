@@ -52,6 +52,12 @@ AVR-GCC / AVR-LIBC 専用。__Arduino互換API用ではない。__
 |M5_OLED_Freq|OLED表示機モジュール実演（周波数測定表示例）
 |M5_TOF|TOF測距センサー実演
 
+## 更新履歴
+
+- 0.4.0 (26/07/05)
+  - ドキュメント更新
+  - 上位実装（modernAVR等）の更新に伴うバージョン番号の変更
+
 ## 著作表示
 
 Twitter: [@askn37](https://twitter.com/askn37) \
